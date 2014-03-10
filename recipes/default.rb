@@ -90,3 +90,7 @@ end
 unless node['kibana']['webserver'].empty?
   include_recipe "kibana::#{node['kibana']['webserver']}"
 end
+
+if node['kibana']['config']['default_dashboard']['custom'] 
+  include_recipe "kibana::dashboard"
+end

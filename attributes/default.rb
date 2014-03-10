@@ -27,6 +27,25 @@ default['kibana']['config']['panel_names']   =  [
 ]
 default['kibana']['config']['default_route'] = '/dashboard/file/logstash.json'
 
+
+########################################################################
+## Default dashboard management (optional)
+#######################################################################
+
+# Whether to override the default Kibana dashboard with your own. If set to true, node['kibana']['config']['default_dashboard']['template'] and node['kibana']['config']['default_dashboard']['directory'] must be set.
+default['kibana']['config']['default_dashboard']['custom'] = false # true | false
+
+# name of the template you provide from which to build the default dashboard. An example is provided in this cookbook, yet you can provide your own dashboard template in your cookbook and override this attribute.
+default['kibana']['config']['default_dashboard']['template'] = "mydashboard.json.erb"
+
+# Where to store the default dashboard that will be built and set to default dashboard if node['kibana']['config']['default_dashboard']['custom'] if set to true.
+default['kibana']['config']['default_dashboard']['directory'] = "/opt/dashboard/mydashboard"
+
+#######################################################################
+# End default dashboard management.
+#######################################################################
+
+
 # include quote inside this next variable if not using window.location style variables...
 # e.g.  = "'http://elasticsearch.example.com:9200'"
 default['kibana']['config']['elasticsearch'] = "window.location.protocol+\"//\"+window.location.hostname+\":\"+window.location.port"

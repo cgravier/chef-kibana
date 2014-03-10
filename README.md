@@ -52,6 +52,13 @@ As with most cookbooks I write, this one is hopefully flexible enough to be wrap
 - `node['kibana']['apache']['template_cookbook']` - The cookbook containing said template
 - `node['kibana']['apache']['enable_default_site']` - Should we disable the apache default site (default: true)
 
+#### kibana::dashboard
+- `node['kibana']['config']['default_dashboard']['custom']` - Whether to override the default Kibana dashboard with your own, either use `true` or `false`. Default ot `false`.
+- `node['kibana']['config']['default_dashboard']['directory']` - Name of the template you provide from which to build the default dashboard. An example is provided in this cookbook, yet you can provide your own dashboard template in your cookbook and override this attribute. Default to `mydashboard.json.erb`
+- `node['kibana']['config']['default_dashboard']['template']` - Where to store the default dashboard that will be built and set to default in case `node['kibana']['config']['default_dashboard']['custom']` if set to `true`. Default to `/opt/dashboard/mydashboard`
+
+#######################################################################
+
 Usage
 -----
 #### kibana::default
@@ -63,6 +70,10 @@ The default recipe will:
 If you want to use the zipfile distribution of Kibana update `node['kibana']['install_type']` attribute to `zipfile`.  Set `node['kibana']['zipfile_checksum']` to appropriate sha256 value of latest zipfile.
 
 If you wish to swap `apache` for `nginx`, simply set `node['kibana']['webserver']` to `apache` in a role/environment/node somewhere.
+
+If you want to install a default dashboard in place of the default kibana dashboard (for instance a dashboard that you already built and exported in another kibana instances), set `node['config']['default_dashboard']['custom']` to `true`, then:
+- provide the template to use with `node['kibana']['config']['default_dashboard']['template']`
+- and, optionally, provide where to store it on the filesystem with `node['kibana']['config']['default_dashboard']['directory']`.
 
 If you don't want this cookbook to handle the webserver config simply set `node['kibana']['webserver']` to `''` in a role/environment/node somewhere.
 Please note that in this case you have to set `node['kibana']['user']`.
